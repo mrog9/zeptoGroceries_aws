@@ -1,1 +1,2 @@
-This project is using AWS to host this fake zepto groceries website.
+This project is using AWS to host a fake zepto groceries website.
+Am initially trying to automate test, merge, and deploy on github actions.
