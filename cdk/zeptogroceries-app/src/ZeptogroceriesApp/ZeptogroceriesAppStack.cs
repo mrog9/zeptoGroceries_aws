@@ -9,7 +9,9 @@ namespace ZeptogroceriesApp
         {
             // The code that defines your stack goes here
 
-            new DNSStack(scope, "myDNSStack", new StackProps());
+            var myStaticPages = new StaticFilesStorage(this, "myS3staticFilesStorage");
+            var myFront = new WebsiteFront(this, "myCloudFront", myStaticPages);
+            
         }
     }
 }

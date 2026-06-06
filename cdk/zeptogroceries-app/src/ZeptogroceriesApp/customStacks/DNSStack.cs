@@ -5,7 +5,6 @@ public class DNSStack : Stack
 {
     
     private StaticFilesStorage myStaticPages;
-    private MyRoute myRoute;
     private WebsiteFront myFront;
 
     public DNSStack(Construct con, string id, StackProps props):base(con, id, props){

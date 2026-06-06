@@ -10,82 +10,14 @@ on:
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
 
+  call-test-workflow:
+    uses: ./.github/workflows/test.yaml
 
-  # This workflow contains a single job called "build"
-  test-build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  call-merge-workflow:
+    uses: ./.github/workflows/merge.yaml
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Runs a set of commands using the runners shell
-      - name: Build image and start container
-        run: |
-          docker compose up -d
-          docker compose down
-
-      - name: Test confirmation
-        run: echo testing has completed!
-
-  copy-build:
-
-    needs: test-build
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - uses: actions/checkout@v4
-
-      - name: Copy static files
-        run: |
-          docker build -t frontend-build frontend/.
-          docker create --name tempbuilder frontend-build
-          docker cp tempbuilder:/react/dist/ ./frontend/dist
-          docker rm tempbuilder
-
-      - name: Commit static files
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add frontend/dist
-          git commit -m "Update dist folder" || echo "No changes"
-          git push origin ${{ github.ref_name }}
-
-
-      - name: Copy confirmation
-        run: echo copying has completed!  
-
-  merge:
-
-    needs: copy-build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write   # REQUIRED for merging
-      pull-requests: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Create PR
-        run: |
-          gh pr create \
-            --base main \
-            --head  ${{ github.ref_name }}\
-            --title "Auto PR for ${{ github.ref_name }}" \
-            --body "Automatically created PR"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Merge into main
-        run: gh pr merge ${{ github.ref_name }} --merge --admin
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           
-      - name: Merge confirmation
-        run: echo Merge completed!
+  call-deploy-workflow:
+    uses: ./.github/workflows/deploy.yaml

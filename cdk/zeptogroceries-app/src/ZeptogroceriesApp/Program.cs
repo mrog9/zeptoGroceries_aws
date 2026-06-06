@@ -1,7 +1,4 @@
 ﻿using Amazon.CDK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ZeptogroceriesApp
 {
@@ -32,12 +29,14 @@ namespace ZeptogroceriesApp
                 Env = new Amazon.CDK.Environment
                 {
                     Account = "749625536154",
-                    Region = "us-east-2",
+                    Region = "us-east-1",
                 }
 
                 // For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
             });
+
             app.Synth();
+
         }
     }
 }

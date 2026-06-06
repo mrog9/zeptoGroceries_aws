@@ -7,10 +7,10 @@ public class StaticFilesStorage: Construct
 
     private Bucket myBucket;
     
-    public StaticFilesStorage(Construct con, string id): base(con, id)
+    public StaticFilesStorage(Construct con, string id): base(con, "myS3Construct")
     {
         
-        myBucket = new Bucket(con, id, new BucketProps
+        myBucket = new Bucket(this, id, new BucketProps
         {
             
             BucketName= "zeptogroceries-frontend",

@@ -7,10 +7,10 @@ public class WebsiteFront : Construct
 {
     private Distribution myDist;
 
-    public WebsiteFront(Construct con, string id, StaticFilesStorage myStorage) : base(con, id)
+    public WebsiteFront(Construct con, string id, StaticFilesStorage myStorage) : base(con, "myCloudFrontConstruct")
     {
         
-        myDist = new Distribution(con, id, new DistributionProps{
+        myDist = new Distribution(this, id, new DistributionProps{
             DefaultBehavior= new BehaviorOptions(){
                 
                 AllowedMethods=AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
