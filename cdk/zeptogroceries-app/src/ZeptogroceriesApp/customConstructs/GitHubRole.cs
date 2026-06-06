@@ -23,16 +23,12 @@ public class GitHubRole : Construct
             AssumedBy= new FederatedPrincipal(
                 provider.OpenIdConnectProviderArn,
                 new Dictionary<string, object>{
-                {
-                "StringEquals", new Dictionary<string, object> {
-                    { "token.actions.githubusercontent.com:aud", "sts.amazonaws.com" }
-                }
-                },
-                {
-                "StringLike", new Dictionary<string, object> {
-                    { "token.actions.githubusercontent.com:sub", "repo:mrog9/zeptoGroceries_aws:ref:refs/heads/main" }
-                }
-                }
+                    {
+                        "StringEquals", new Dictionary<string, object> {
+                            { "token.actions.githubusercontent.com:aud", "sts.amazonaws.com" },
+                            { "token.actions.githubusercontent.com:sub", "repo:mrog9/zeptoGroceries_aws:ref:refs/heads/main" }
+                        }
+                    }
                 },
                 "sts:AssumeRoleWithWebIdentity"
              )
