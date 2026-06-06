@@ -4,6 +4,8 @@ name: MERGE
 on:
   workflow_call:
 
+jobs:
+
   merge:
 
     runs-on: ubuntu-latest

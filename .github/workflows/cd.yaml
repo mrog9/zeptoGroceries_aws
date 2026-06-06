@@ -12,5 +12,6 @@ jobs:
     uses: ./.github/workflows/merge.yaml
 
   call-deploy-workflow:
+    needs: call-merge-workflow
     uses: mrog9/zeptoGroceries_aws/.github/workflows/deploy.yaml@main
 

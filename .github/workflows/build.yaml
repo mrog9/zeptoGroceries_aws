@@ -7,7 +7,6 @@ jobs:
 
   copy-build:
 
-    needs: test-build
     runs-on: ubuntu-latest
 
     steps:
