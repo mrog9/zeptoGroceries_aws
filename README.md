@@ -4,3 +4,5 @@ Still testing by modifying github settings for repo
 
 Created basic infrastructure in aws. now i am seeing if i can automatically
 deploy cdk code and frontend code to aws automatically.
+
+Destroyed stack and now reassembling.
