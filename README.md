@@ -1,0 +1,1 @@
+This project is using AWS to host this fake zepto groceries website.
