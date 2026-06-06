@@ -14,7 +14,6 @@ jobs:
 
   merge:
 
-    needs: copy-build
     runs-on: ubuntu-latest
     permissions:
       contents: write   # REQUIRED for merging
