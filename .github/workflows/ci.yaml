@@ -45,7 +45,7 @@ jobs:
         run: |
           docker build -t frontend-build frontend/.
           docker create --name tempbuilder frontend-build
-          docker cp tempbuilder:/react_app/dist/ ./frontend/dist
+          docker cp tempbuilder:/react/dist/ ./frontend/dist
           docker rm tempbuilder
 
       - name: Commit static files
