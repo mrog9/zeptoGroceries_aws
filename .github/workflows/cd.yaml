@@ -13,7 +13,7 @@ permissions:
 
 jobs:
 
-  deploy:
+  deploy-cdk:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,6 +42,7 @@ jobs:
 
 
   deploy-frontend:
+    needs: deploy-cdk
     runs-on: ubuntu-latest
 
     steps:
