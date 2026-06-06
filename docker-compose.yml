@@ -1,0 +1,22 @@
+services:
+
+  backend:
+
+    build: ./backend
+    expose:
+      - "3000"
+
+  nginx:
+    build:
+      context: ./frontend/app
+      dockerfile: Dockerfile
+    depends_on: [backend]
+    ports:
+      - "80:80"
+
+  playwright:
+
+    build: ./zeptotests
+    depends_on: [nginx]
+
+  

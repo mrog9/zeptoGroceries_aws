@@ -1,0 +1,43 @@
+name: MERGE
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "cd/*" , "cd/*/*" ]
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  merge:
+
+    needs: copy-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # REQUIRED for merging
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create PR
+        run: |
+          gh pr create \
+            --base main \
+            --head  ${{ github.ref_name }}\
+            --title "Auto PR for ${{ github.ref_name }}" \
+            --body "Automatically created PR"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge into main
+        run: gh pr merge ${{ github.ref_name }} --merge --admin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           
+      - name: Merge confirmation
+        run: echo Merge completed!
