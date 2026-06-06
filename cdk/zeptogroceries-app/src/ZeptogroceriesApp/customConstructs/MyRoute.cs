@@ -7,10 +7,10 @@ public class MyRoute : Construct
 
     private PublicHostedZone hostedZone;
     
-    public MyRoute(Construct con, string id): base(con, id)
+    public MyRoute(Construct con, string id): base(con, "myRouteConstruct")
     {
         
-        hostedZone = new PublicHostedZone(con, id, new PublicHostedZoneProps{
+        hostedZone = new PublicHostedZone(this, id, new PublicHostedZoneProps{
             
             ZoneName= "zeptogroceries-notreal.com"
 

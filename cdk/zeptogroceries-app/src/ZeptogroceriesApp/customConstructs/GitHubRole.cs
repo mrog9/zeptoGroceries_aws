@@ -7,10 +7,10 @@ public class GitHubRole : Construct
     
     private Role role;
 
-    public GitHubRole(Construct con, string id) : base(con, id)
+    public GitHubRole(Construct con, string id) : base(con, "myRoleConstruct")
     {
         
-        OpenIdConnectProvider provider = new OpenIdConnectProvider(con, "GitHubOIDC", new OpenIdConnectProviderProps
+        OpenIdConnectProvider provider = new OpenIdConnectProvider(this, "GitHubOIDC", new OpenIdConnectProviderProps
         {
             Url= "https://token.actions.githubusercontent.com",
             ClientIds = new [] { "sts.amazonaws.com" }

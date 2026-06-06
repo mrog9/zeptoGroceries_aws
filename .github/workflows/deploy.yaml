@@ -1,0 +1,63 @@
+name: deploy
+
+on:
+  workflow_call:
+
+permissions:
+
+  id-token: write        # Required for OIDC
+  contents: read         # Allows checkout
+
+jobs:
+
+  deploy-cdk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::749625536154:role/GitHubActionsRole
+          aws-region: us-east-1
+
+      - name: Install CDK
+        run: npm install -g aws-cdk
+
+      - name: Install dependencies
+        run: |
+          cd cdk/zeptogroceries-app/src/ZeptogroceriesApp
+          dotnet restore
+
+      - name: Build CDK app
+        run: |
+          dotnet build
+          cd ../../
+
+      - name: Deploy CDK
+        run: cdk deploy --require-approval never
+
+
+  deploy-frontend:
+    needs: deploy-cdk
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::749625536154:role/GitHubActionsRole
+          aws-region: us-east-1
+
+      - name: Upload to S3
+        run: aws s3 sync frontend/app/dist s3://zeptogroceries-frontend --delete
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation \
+             --distribution-id myCloudFront \
+             --paths "/*"

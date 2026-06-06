@@ -1,0 +1,33 @@
+name: build
+
+on:
+  workflow_call:
+
+jobs:
+
+  copy-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Copy static files
+        run: |
+          docker build -t frontend-build frontend/.
+          docker create --name tempbuilder frontend-build
+          docker cp tempbuilder:/react/dist/ ./frontend/dist
+          docker rm tempbuilder
+
+      - name: Commit static files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add frontend/dist
+          git commit -m "Update dist folder" || echo "No changes"
+          git push origin ${{ github.ref_name }}
+
+
+      - name: Copy confirmation
+        run: echo copying has completed!
