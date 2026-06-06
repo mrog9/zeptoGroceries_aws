@@ -17,7 +17,7 @@ public class GitHubRole : Construct
 
         });
 
-        role = new Role(con, "GitHubActionsRole", new RoleProps
+        role = new Role(this, "GitHubActionsRole", new RoleProps
         {
             
             AssumedBy= new FederatedPrincipal(
