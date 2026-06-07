@@ -8,3 +8,5 @@ deploy cdk code and frontend code to aws automatically.
 Destroyed stack and now reassembling.
 
 Now trying to get cd to work again.
+
+Small improvements have been made.
