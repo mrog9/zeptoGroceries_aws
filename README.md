@@ -14,3 +14,5 @@ Small improvements have been made.
 Should be about done.
 
 Small improvement. working on pushing to s3.
+
+Wrong files were being pushed to s3. Should be fixed.
