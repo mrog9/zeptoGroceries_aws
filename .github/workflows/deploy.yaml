@@ -61,5 +61,5 @@ jobs:
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation \
-             --distribution-id arn:aws:cloudformation:us-east-1:749625536154:stack/ZeptogroceriesAppStack/eed04f60-61ff-11f1-8c0c-12d05938aa6b \
+             --distribution-id E1S96GKIRQGXTE \
              --paths "/*"
