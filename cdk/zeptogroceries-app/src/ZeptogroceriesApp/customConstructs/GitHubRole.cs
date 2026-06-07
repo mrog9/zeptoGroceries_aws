@@ -26,7 +26,7 @@ public class GitHubRole : Construct
                     {
                         "StringEquals", new Dictionary<string, object> {
                             { "token.actions.githubusercontent.com:aud", "sts.amazonaws.com" },
-                            { "token.actions.githubusercontent.com:sub", "repo:mrog9/zeptoGroceries_aws:ref:refs/heads/main" }
+                            { "token.actions.githubusercontent.com:sub", "repo:mrog9/zeptoGroceries_aws:ref:refs/heads/*" }
                         }
                     }
                 },
