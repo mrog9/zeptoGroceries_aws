@@ -60,6 +60,7 @@ jobs:
         run: aws s3 sync frontend/dist s3://zeptogroceries-frontend --delete
 
       - name: Invalidate CloudFront cache
-        run: aws cloudfront create-invalidation \
-             --distribution-id E1S96GKIRQGXTE \
-             --paths "/*"
+        run: |
+          aws cloudfront create-invalidation \
+          --distribution-id E1S96GKIRQGXTE \
+          --paths "/*"

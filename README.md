@@ -16,3 +16,5 @@ Should be about done.
 Small improvement. working on pushing to s3.
 
 Wrong files were being pushed to s3. Should be fixed.
+
+s3 problem is fixed.. now working on cloudfront invalidation
