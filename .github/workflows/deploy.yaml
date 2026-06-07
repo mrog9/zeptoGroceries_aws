@@ -33,8 +33,9 @@ jobs:
 
       - name: Build CDK app
         run: |
+          cd ..
           dotnet build
-          cd ../../
+          cd ..
 
       - name: Deploy CDK
         run: cdk deploy --require-approval never
