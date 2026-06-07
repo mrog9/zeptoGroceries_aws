@@ -12,3 +12,5 @@ Now trying to get cd to work again.
 Small improvements have been made.
 
 Should be about done.
+
+Small improvement. working on pushing to s3.
