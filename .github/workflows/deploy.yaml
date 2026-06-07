@@ -33,12 +33,13 @@ jobs:
 
       - name: Build CDK app
         run: |
-          cd ..
+          cd cdk/zeptogroceries-app/src
           dotnet build
-          cd ..
 
       - name: Deploy CDK
-        run: cdk deploy --require-approval never
+        run: |
+          cd cdk/zeptogroceries-app
+          cdk deploy --require-approval never
 
 
   deploy-frontend:
@@ -60,5 +61,5 @@ jobs:
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation \
-             --distribution-id myCloudFront \
+             --distribution-id arn:aws:cloudformation:us-east-1:749625536154:stack/ZeptogroceriesAppStack/eed04f60-61ff-11f1-8c0c-12d05938aa6b \
              --paths "/*"
