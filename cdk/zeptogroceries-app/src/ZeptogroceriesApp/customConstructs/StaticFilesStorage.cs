@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Amazon.CDK;
+using Amazon.CDK.AWS.CloudFront;
 using Amazon.CDK.AWS.IAM;
-using Amazon.CDK.AWS.KinesisFirehose;
 using Amazon.CDK.AWS.S3;
 using Constructs;
 
@@ -23,6 +23,13 @@ public class StaticFilesStorage: Construct
 
         });
 
+
+    }
+
+    public Bucket getMyBucket(){return myBucket;}
+    public void setBucketPolicy(CfnDistribution distr)
+    {
+        
         myBucket.AddToResourcePolicy(new PolicyStatement(new PolicyStatementProps
         {
             Effect = Effect.ALLOW,
@@ -37,16 +44,13 @@ public class StaticFilesStorage: Construct
                 {
                     "StringEquals", new Dictionary<string, object>
                     {
-                        { "AWS:SourceArn", "arn:aws:cloudfront::749625536154:distribution/E1S96GKIRQGXTE" }
+                        { "AWS:SourceArn", $"arn:aws:cloudfront::749625536154:distribution/{distr.Ref}" }
                     }
                 }
             }
         }));
 
-
     }
-
-    public Bucket getMyBucket(){return myBucket;}
 
 
 }
