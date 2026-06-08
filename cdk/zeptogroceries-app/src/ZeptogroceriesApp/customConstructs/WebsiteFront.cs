@@ -5,7 +5,7 @@ using Constructs;
 
 public class WebsiteFront : Construct
 {
-    private Distribution myDist;
+    private CfnDistribution myDist;
 
     public WebsiteFront(Construct con, string id, Bucket myBucket) : base(con, "myCloudFrontConstruct")
     {
@@ -21,7 +21,7 @@ public class WebsiteFront : Construct
         });
 
         
-       var distribution = new CfnDistribution(this, id, new CfnDistributionProps
+       myDist = new CfnDistribution(this, id, new CfnDistributionProps
         {
             DistributionConfig = new CfnDistribution.DistributionConfigProperty
             {
@@ -52,5 +52,7 @@ public class WebsiteFront : Construct
 
 
     }
+
+    public CfnDistribution getDistr(){return myDist;}
 
 }
