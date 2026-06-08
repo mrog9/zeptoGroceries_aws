@@ -11,7 +11,7 @@ namespace ZeptogroceriesApp
 
             new GitHubRole(this, "myGitHubRole");
             var myStaticPages = new StaticFilesStorage(this, "myS3staticFilesStorage");
-            var myFront = new WebsiteFront(this, "myCloudFront", myStaticPages);
+            var myFront = new WebsiteFront(this, "myCloudFront", myStaticPages.getMyBucket());
             
         }
     }
