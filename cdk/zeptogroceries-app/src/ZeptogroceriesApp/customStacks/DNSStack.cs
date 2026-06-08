@@ -8,8 +8,6 @@ public class DNSStack : Stack
     private WebsiteFront myFront;
 
     public DNSStack(Construct con, string id, StackProps props):base(con, id, props){
-        myStaticPages = new StaticFilesStorage(this, "myS3staticFilesStorage");
-        myFront = new WebsiteFront(this, "myCloudFront", myStaticPages);
 
     }
 
