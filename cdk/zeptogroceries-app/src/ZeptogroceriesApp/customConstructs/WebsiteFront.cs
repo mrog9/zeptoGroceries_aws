@@ -45,7 +45,8 @@ public class WebsiteFront : Construct
                     TargetOriginId = "S3Origin",
                     ViewerProtocolPolicy = "redirect-to-https",
                     AllowedMethods = new [] { "GET", "HEAD" },
-                    CachedMethods = new [] { "GET", "HEAD" }
+                    CachedMethods = new [] { "GET", "HEAD" },
+                    CachePolicyId = "658327ea-f89d-4fab-a63d-7e88639e58f6"
                 }
             }
         });
