@@ -44,13 +44,12 @@ public class StaticFilesStorage: Construct
                 {
                     "StringEquals", new Dictionary<string, object>
                     {
-                        { "AWS:SourceArn", $"arn:aws:cloudfront::749625536154:distribution/{distr.Ref}" }
+                        { "AWS:SourceArn",  $"arn:aws:cloudfront::749625536154:distribution/{distr.Ref}" }
                     }
                 }
             }
         }));
 
     }
-
 
 }
