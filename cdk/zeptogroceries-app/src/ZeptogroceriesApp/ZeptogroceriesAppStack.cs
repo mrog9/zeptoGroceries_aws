@@ -13,6 +13,9 @@ namespace ZeptogroceriesApp
             var myStaticPages = new StaticFilesStorage(this, "myS3staticFilesStorage");
             var myFront = new WebsiteFront(this, "myCloudFront", myStaticPages.getMyBucket());
             myStaticPages.setBucketPolicy(myFront.getDistr());
+
+            var vpcObj = new VPC(this, "myVPC");
+            var dbInstanceObj = new DatabaseInstanceConstruct(this, "myDBinstance", vpcObj.getVPC());
             
         }
     }
