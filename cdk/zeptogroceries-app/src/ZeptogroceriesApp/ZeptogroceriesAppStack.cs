@@ -10,6 +10,7 @@ namespace ZeptogroceriesApp
             // The code that defines your stack goes here
 
             new GitHubRole(this, "myGitHubRole");
+            var myECR = new ECR(this, "ZeptoImageRepo");
             var myStaticPages = new StaticFilesStorage(this, "myS3staticFilesStorage");
             var myFront = new WebsiteFront(this, "myCloudFront", myStaticPages.getMyBucket());
             myStaticPages.setBucketPolicy(myFront.getDistr());
