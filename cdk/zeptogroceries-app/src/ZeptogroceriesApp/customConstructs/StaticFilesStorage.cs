@@ -26,8 +26,8 @@ public class StaticFilesStorage: Construct
 
     }
 
-    public Bucket getMyBucket(){return myBucket;}
-    public void setBucketPolicy(CfnDistribution distr)
+    public Bucket GetMyBucket(){return myBucket;}
+    public void SetBucketPolicy(CfnDistribution distr)
     {
         
         myBucket.AddToResourcePolicy(new PolicyStatement(new PolicyStatementProps
