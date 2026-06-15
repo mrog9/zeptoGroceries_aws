@@ -12,7 +12,7 @@ public class ECR : Construct
         repo = new Repository(this, id, new RepositoryProps
         {
             
-            RepositoryName = "ZeptoImageRepo",
+            RepositoryName = "zepto-image-repo",
             EmptyOnDelete = true,
             RemovalPolicy = Amazon.CDK.RemovalPolicy.DESTROY
 
