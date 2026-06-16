@@ -64,3 +64,32 @@ jobs:
           aws cloudfront create-invalidation \
           --distribution-id E30W3YLAX1VMJN \
           --paths "/*"
+
+  deploy-backend-img:
+    needs: deploy-frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::749625536154:role/ZeptogroceriesAppStack-myRoleConstructGitHubActions-7S3yBKxwGZaV
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t users-service ./users-service
+
+      - name: Tag image
+        run: |
+          docker tag users-service:latest 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-users-image-repo:latest
+
+      - name: Push image
+        run: |
+          docker push 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-users-image-repo:latest
