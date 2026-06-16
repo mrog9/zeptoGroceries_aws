@@ -22,8 +22,7 @@ namespace ZeptogroceriesApp
             var myALB = new ALB(this, "myALB", cluster);
 
             var myFGservice = new Fargate(this, "myUsersFargateService", "UsersService", myECR, myALB, cluster);
-
-            myALB.AddListener("UsersServiceTarget", myFGservice);
+            myFGservice.AddListener("UsersServiceTarget", ["/users/getUser", "/users/postUser"], 3000, myALB);
 
             var myFront = new WebsiteFront(this, "myCloudFront", myStaticPages, myALB);
             myStaticPages.SetBucketPolicy(myFront.GetDistr());
