@@ -9,7 +9,7 @@ public class ALB : Construct
     private ApplicationLoadBalancer myALB;
     private SecurityGroup mySG;
 
-    public ApplicationListener albListener {get; private set;}
+    private ApplicationListener albListener;
 
     public ALB(Construct scope, string id, Cluster cluster):base(scope, "ALBConstruct")
     {
@@ -40,21 +40,7 @@ public class ALB : Construct
     }
 
     public ApplicationLoadBalancer GetALB() {return myALB;}
-    public string GetALBuniqueSGid(){return mySG.UniqueId;}
-
-    public void AddListener(string targetID, Fargate fgService)
-    {
-        
-        albListener.AddTargets(targetID, new AddApplicationTargetsProps
-        {
-            Port = 3000,
-            Priority = 10,
-            Conditions = [ListenerCondition.PathPatterns(["/users/postUser", "/users/getUser" ])],
-            Targets=[fgService.GetFargateService()]
-
-
-        });
-
-    }
+    public string GetALBSGid(){return mySG.SecurityGroupId;}
+    public ApplicationListener GetALBListener(){return albListener;}
 
 }

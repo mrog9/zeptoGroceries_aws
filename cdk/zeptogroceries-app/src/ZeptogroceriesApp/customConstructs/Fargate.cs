@@ -20,7 +20,7 @@ public class Fargate: Construct
         });
         
 
-        mySG.AddIngressRule(Peer.SecurityGroupId(alb.GetALBuniqueSGid()), Port.Tcp(3000));
+        mySG.AddIngressRule(Peer.SecurityGroupId(alb.GetALBSGid()), Port.Tcp(3000));
 
         var taskDef = new FargateTaskDefinition(this, serviceName + "TaskDefinition", new FargateTaskDefinitionProps
         {
@@ -59,4 +59,18 @@ public class Fargate: Construct
     public FargateService GetFargateService(){return myService;}
     public string GetFargateUniqueSGid(){return mySG.UniqueId;}
 
+    public void AddListener(string id, string[] pathPatterns, int portNum, ALB alb)
+    {
+        
+        alb.GetALBListener().AddTargets(id, new AddApplicationTargetsProps
+        {
+            Port = portNum,
+            Priority = 10,
+            Conditions = [ListenerCondition.PathPatterns(pathPatterns)],
+            Targets=[myService]
+
+
+        });
+
+    }
 }
