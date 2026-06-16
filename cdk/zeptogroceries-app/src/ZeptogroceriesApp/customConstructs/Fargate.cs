@@ -9,7 +9,7 @@ public class Fargate: Construct
     private FargateService myService;
     private SecurityGroup mySG;
 
-    public Fargate(Construct scope, string id, string serviceName, ALB alb, Cluster cluster): base(scope, "myFargateConstruct")
+    public Fargate(Construct scope, string id, string serviceName,ECR serviceRepo, ALB alb, Cluster cluster): base(scope, "myFargateConstruct")
     {
 
         mySG = new SecurityGroup(this, "FargateSG", new SecurityGroupProps{
@@ -22,10 +22,33 @@ public class Fargate: Construct
 
         mySG.AddIngressRule(Peer.SecurityGroupId(alb.GetALBuniqueSGid()), Port.Tcp(3000));
 
+        var taskDef = new FargateTaskDefinition(this, serviceName + "TaskDefinition", new FargateTaskDefinitionProps
+        {
+            Cpu = 256,
+            MemoryLimitMiB = 512
+        });
+
+        var container = taskDef.AddContainer(serviceName + "Container", new ContainerDefinitionOptions
+        {
+            Image = ContainerImage.FromEcrRepository(serviceRepo.getRepo()),
+            Logging = LogDriver.AwsLogs(new AwsLogDriverProps
+            {
+                StreamPrefix = serviceName
+            })
+
+        });
+
+        container.AddPortMappings(new PortMapping
+        {
+            ContainerPort = 3000,
+            Protocol = Amazon.CDK.AWS.ECS.Protocol.TCP
+        });
+
         myService = new FargateService(this, id, new FargateServiceProps
         {
             
             Cluster = cluster,
+            TaskDefinition = taskDef,
             ServiceName = serviceName,
             SecurityGroups = [mySG]
 

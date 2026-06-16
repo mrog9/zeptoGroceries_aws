@@ -21,7 +21,7 @@ namespace ZeptogroceriesApp
 
             var myALB = new ALB(this, "myALB", cluster);
 
-            var myFGservice = new Fargate(this, "myUsersFargateService", "UsersService", myALB, cluster);
+            var myFGservice = new Fargate(this, "myUsersFargateService", "UsersService", myECR, myALB, cluster);
 
             myALB.AddListener("UsersServiceTarget", myFGservice);
 
