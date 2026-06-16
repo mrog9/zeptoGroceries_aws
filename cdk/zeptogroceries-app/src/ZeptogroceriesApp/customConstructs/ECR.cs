@@ -20,4 +20,6 @@ public class ECR : Construct
 
     }
 
+    public Repository getRepo(){return repo;}
+
 }
