@@ -44,6 +44,24 @@ public class GitHubRole : Construct
 
         role.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("AdministratorAccess"));
 
+        var ecrStatement = new PolicyStatement(new PolicyStatementProps
+        {
+            Effect = Effect.ALLOW
+        });
+        ecrStatement.AddActions([
+                "ecr:GetAuthorizationToken",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload",
+                "ecr:PutImage"
+            ]);
+
+        ecrStatement.AddResources(["arn:aws:ecr:us-east-1:749625536154:repository/zepto-image-repo"]);
+
+        role.AddToPolicy(ecrStatement);
+
+
     }
 
 
