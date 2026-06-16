@@ -88,8 +88,8 @@ jobs:
 
       - name: Tag image
         run: |
-          docker tag users-service:latest 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-image-repo:latest
+          docker tag users-service:latest 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-users-image-repo:latest
 
       - name: Push image
         run: |
-          docker push 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-image-repo:latest
+          docker push 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-users-image-repo:latest
