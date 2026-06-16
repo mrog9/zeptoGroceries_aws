@@ -57,7 +57,7 @@ public class Fargate: Construct
     }
 
     public FargateService GetFargateService(){return myService;}
-    public string GetFargateUniqueSGid(){return mySG.UniqueId;}
+    public string GetFargateUniqueSGid(){return mySG.SecurityGroupId;}
 
     public void AddListener(string id, string[] pathPatterns, double portNum, ALB alb)
     {
