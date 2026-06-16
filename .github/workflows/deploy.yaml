@@ -84,12 +84,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t request-service ./request-service
+          docker build -t users-service ./users-service
 
       - name: Tag image
         run: |
-          docker tag request-service:latest 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-image-repo/request-service:latest
+          docker tag users-service:latest 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-image-repo/users-service:latest
 
       - name: Push image
         run: |
-          docker push 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-image-repo/request-service:latest
+          docker push 749625536154.dkr.ecr.us-east-1.amazonaws.com/zepto-image-repo/users-service:latest
