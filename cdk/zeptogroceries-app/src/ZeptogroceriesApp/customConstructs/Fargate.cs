@@ -59,12 +59,13 @@ public class Fargate: Construct
     public FargateService GetFargateService(){return myService;}
     public string GetFargateUniqueSGid(){return mySG.UniqueId;}
 
-    public void AddListener(string id, string[] pathPatterns, int portNum, ALB alb)
+    public void AddListener(string id, string[] pathPatterns, double portNum, ALB alb)
     {
         
         alb.GetALBListener().AddTargets(id, new AddApplicationTargetsProps
         {
             Port = portNum,
+            Protocol = ApplicationProtocol.HTTPS,
             Priority = 10,
             Conditions = [ListenerCondition.PathPatterns(pathPatterns)],
             Targets=[myService]
